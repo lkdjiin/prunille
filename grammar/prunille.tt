@@ -1,0 +1,56 @@
+# -*- encoding: utf-8 -*-
+grammar Prunille
+
+  rule statement
+    leading_spaces expression? <Statement>
+  end
+  
+  rule expression
+    operation / factor
+  end
+  
+  rule operation
+    factor space operator space factor <Operation>
+  end
+  
+  rule factor
+    (identifier / text / integer)
+  end
+  
+  rule text
+    '"' ([^"\\] / "\\" . )* '"' <TextLiteral>
+  end
+  
+  rule keyword
+    'class' !(!' ' .) <Keyword>
+    /
+    'is' !(!' ' .) <Keyword>
+    /
+    'new' !(!' ' .) <Keyword>
+    /
+    'if' !(!' ' .) <Keyword>
+    /
+    'else' !(!' ' .) <Keyword>
+  end
+
+  rule identifier
+    [a-zA-Z] [a-zA-Z0-9-]* <Identifier>
+  end
+  
+  rule integer
+    ('+' / '-')? [0-9]+ <IntegerLiteral>
+  end
+  
+  rule operator
+    '+' <Operator>
+  end
+  
+  rule leading_spaces
+    ' '* <Spaces>
+  end
+
+  rule space
+    [\s]+
+  end
+  
+end

@@ -1,0 +1,14 @@
+= The Prunille language
+
+Not much to say now...
+Come back later.
+
+Regards.
+
+== dependencies
+ruby >= 1.9.2
+rspec
+reek
+
+== licence
+GPLv3
