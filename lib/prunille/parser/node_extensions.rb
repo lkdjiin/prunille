@@ -2,6 +2,7 @@
 
 # Main namespace for the Prunille language.
 module Prunille
+module Parser
 
   # A single statement of the language
   class Statement < Treetop::Runtime::SyntaxNode
@@ -63,4 +64,5 @@ module Prunille
     end
   end
 
+end
 end

@@ -1,14 +1,14 @@
 # -*- encoding: utf-8 -*-
 require './lib/prunille'
 
-describe Prunille::Parser do
+describe Prunille::Parser::Parser do
 
   before :all do
-    @parser = Prunille::Parser.new
+    @parser = Prunille::Parser::Parser.new
   end
 
   it "should raise a ParseError on invalid input" do
-    lambda {@parser.parse 'éléphant'}.should raise_error(Prunille::ParseError)
+    lambda {@parser.parse 'éléphant'}.should raise_error(::Prunille::ParseError)
   end
   
   it "should parse a single identifier" do

@@ -9,6 +9,8 @@ module Prunille
     @root ||= :statement
   end
 
+  include Prunille::Parser
+
   module Statement0
     def leading_spaces
       elements[0]
@@ -310,12 +312,6 @@ module Prunille
   module Keyword7
   end
 
-  module Keyword8
-  end
-
-  module Keyword9
-  end
-
   def _nt_keyword
     start_index = index
     if node_cache[:keyword].has_key?(index)
@@ -576,71 +572,8 @@ module Prunille
           if r22
             r0 = r22
           else
-            i29, s29 = index, []
-            if has_terminal?('else', false, index)
-              r30 = instantiate_node(SyntaxNode,input, index...(index + 4))
-              @index += 4
-            else
-              terminal_parse_failure('else')
-              r30 = nil
-            end
-            s29 << r30
-            if r30
-              i31 = index
-              i32, s32 = index, []
-              i33 = index
-              if has_terminal?(' ', false, index)
-                r34 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                terminal_parse_failure(' ')
-                r34 = nil
-              end
-              if r34
-                r33 = nil
-              else
-                @index = i33
-                r33 = instantiate_node(SyntaxNode,input, index...index)
-              end
-              s32 << r33
-              if r33
-                if index < input_length
-                  r35 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                  @index += 1
-                else
-                  terminal_parse_failure("any character")
-                  r35 = nil
-                end
-                s32 << r35
-              end
-              if s32.last
-                r32 = instantiate_node(SyntaxNode,input, i32...index, s32)
-                r32.extend(Keyword8)
-              else
-                @index = i32
-                r32 = nil
-              end
-              if r32
-                r31 = nil
-              else
-                @index = i31
-                r31 = instantiate_node(SyntaxNode,input, index...index)
-              end
-              s29 << r31
-            end
-            if s29.last
-              r29 = instantiate_node(Keyword,input, i29...index, s29)
-              r29.extend(Keyword9)
-            else
-              @index = i29
-              r29 = nil
-            end
-            if r29
-              r0 = r29
-            else
-              @index = i0
-              r0 = nil
-            end
+            @index = i0
+            r0 = nil
           end
         end
       end

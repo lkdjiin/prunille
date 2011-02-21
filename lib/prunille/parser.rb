@@ -1,20 +1,7 @@
-# -*- encoding: utf-8 -*-
-
+require "prunille/parser/node_extensions"
+require "prunille/parser/parser"
+require "prunille/parser/prunille"
 module Prunille
-
-  # I parse the Prunille language.
-  class Parser
-    
-    def initialize
-      @parser = PrunilleParser.new
-    end
-    
-    def parse data 
-      tree = @parser.parse data
-      raise ParseError, @parser.failure_reason unless tree
-      tree.to_array
-    end
-    
+  module Parser
   end
-
 end

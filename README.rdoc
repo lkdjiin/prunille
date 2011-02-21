@@ -6,9 +6,10 @@ Come back later.
 Regards.
 
 == dependencies
-ruby >= 1.9.2
-rspec
-reek
+
+* ruby >= 1.9.2
+* rspec
+* reek
 
 == licence
 GPLv3

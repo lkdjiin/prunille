@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 grammar Prunille
+  include Prunille::Parser
 
   rule statement
     leading_spaces expression? <Statement>
@@ -29,8 +30,8 @@ grammar Prunille
     'new' !(!' ' .) <Keyword>
     /
     'if' !(!' ' .) <Keyword>
-    /
-    'else' !(!' ' .) <Keyword>
+    #/
+    #'else' !(!' ' .) <Keyword>
   end
 
   rule identifier

@@ -10,7 +10,7 @@ task :reek do
 end
 
 GRAMMAR_SOURCE = "./grammar/prunille.tt"
-GRAMMAR_TARGET = "./lib/prunille/prunille.rb"
+GRAMMAR_TARGET = "./lib/prunille/parser/prunille.rb"
 
 file GRAMMAR_TARGET => [GRAMMAR_SOURCE] do
   puts "Compiling TreeTop grammar..."
@@ -18,9 +18,8 @@ file GRAMMAR_TARGET => [GRAMMAR_SOURCE] do
 end
 
 desc 'Test Prunille'
-task :test => "./lib/prunille/prunille.rb" do 
+task :test => GRAMMAR_TARGET do 
   puts 'Testing Prunille...'
   sh "rspec --color --format documentation spec"
 end
-
 
