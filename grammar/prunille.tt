@@ -30,8 +30,8 @@ grammar Prunille
     'new' !(!' ' .) <Keyword>
     /
     'if' !(!' ' .) <Keyword>
-    #/
-    #'else' !(!' ' .) <Keyword>
+    /
+    'else' !(!' ' .) <Keyword>
   end
 
   rule identifier

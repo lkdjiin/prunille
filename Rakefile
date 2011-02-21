@@ -1,16 +1,16 @@
 # -*- encoding: utf-8 -*-
 
+GRAMMAR_SOURCE = "grammar/prunille.tt"
+GRAMMAR_TARGET = "lib/prunille/parser/prunille.rb"
+
 desc 'Check for code smells'
 task :reek do
   puts 'Checking for code smells...'
   files = Dir.glob 'lib/**/*.rb'
-  files.delete 'lib/prunille/prunille.rb'
+  files.delete GRAMMAR_TARGET
   args = files.join(' ')
-  sh "reek --quiet #{args} | ./reek.sed"
+  exec "reek --quiet #{args} | ./reek.sed"
 end
-
-GRAMMAR_SOURCE = "./grammar/prunille.tt"
-GRAMMAR_TARGET = "./lib/prunille/parser/prunille.rb"
 
 file GRAMMAR_TARGET => [GRAMMAR_SOURCE] do
   puts "Compiling TreeTop grammar..."

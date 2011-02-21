@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
+require 'prunille'
+
+if ARGV[0].nil?
+  puts "usage: prunille filename"
+else
+  main = Prunille::Main.new ARGV[0].dup
+  main.process
+end
