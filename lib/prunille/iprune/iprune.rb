@@ -1,17 +1,26 @@
 module Prunille::IPrune
 
-  PROMPT = 'iprune> '
   RESPONSE = '=> '
   
   # Interactive console for the Prunille language.
   class IPrune
   
+    def initialize
+      @line_number = 1
+    end
+  
     def process
       loop do
-        print PROMPT
+        prompt
         line = gets.chomp
         puts RESPONSE + line
       end
+    end
+    
+    private
+    
+    def prompt
+      print "iprune:#{format('%03d', @line_number)}> "
     end
     
   end
