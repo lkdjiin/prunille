@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'prunille'
-
-main = IPrune.new
+require 'prunille/iprune'
+main = Prunille::IPrune::IPrune.new
 main.process
