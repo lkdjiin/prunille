@@ -43,12 +43,16 @@ module Parser
     end
   end
   
+  # @example Prunille code
+  #   new Object
   class Instanciation < Treetop::Runtime::SyntaxNode
     def to_array
       [:instanciation, ParserHelper.elements_to_array(self)]
     end
   end
   
+  # @example Prunille code
+  #   var is new Object
   class Assignment < Treetop::Runtime::SyntaxNode
     def to_array
       [:assignment, ParserHelper.elements_to_array(self)]
@@ -83,6 +87,7 @@ module Parser
     end
   end
   
+  # A class name terminal
   class ClassLiteral < PrunilleTerminal
     def initialize(*args)
       super(:class, :to_sym, *args)
