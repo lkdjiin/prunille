@@ -33,7 +33,19 @@ module Prunille
     r1 = _nt_leading_spaces
     s0 << r1
     if r1
-      r3 = _nt_expression
+      i3 = index
+      r4 = _nt_assignment
+      if r4
+        r3 = r4
+      else
+        r5 = _nt_expression
+        if r5
+          r3 = r5
+        else
+          @index = i3
+          r3 = nil
+        end
+      end
       if r3
         r2 = r3
       else
@@ -247,7 +259,7 @@ module Prunille
       end
     end
     if s0.last
-      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0 = instantiate_node(Assignment,input, i0...index, s0)
       r0.extend(Assignment0)
     else
       @index = i0

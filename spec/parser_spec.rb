@@ -88,12 +88,28 @@ describe Prunille::Parser::Parser do
   
   it "should parse an instanciation" do
     result = @parser.parse 'new Object'
-    result.should == [[:spaces, 0], [:keyword, :new], [:type, :Object]]
+    result.should ==  [
+                        [:spaces, 0], 
+                        [:instanciation,
+                          [[:keyword, :new], [:class, :Object]]
+                        ]
+                      ]
   end
   
-  #~ it "should parse an assignment" do
-    #~ result = @parser.parse 'obj is new Object'
-    #~ result.should == [[:spaces, 0], [:identifier, :obj], [:keyword, :is], [:keyword, :new], [:type, :Object]]
-  #~ end
+  it "should parse an assignment" do
+    result = @parser.parse 'obj is new Object'
+    result.should ==  [
+                        [:spaces, 0], 
+                        [:assignment, 
+                          [
+                            [:identifier, :obj], 
+                            [:keyword, :is], 
+                            [:instanciation, 
+                              [[:keyword, :new], [:class, :Object]]
+                            ]
+                          ]
+                        ]
+                      ]
+  end
   
 end

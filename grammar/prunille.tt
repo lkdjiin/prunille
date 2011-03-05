@@ -3,7 +3,7 @@ grammar Prunille
   include Prunille::Parser
 
   rule statement
-    leading_spaces (expression)? <Statement>
+    leading_spaces (assignment / expression)? <Statement>
   end
   
   rule expression
@@ -19,7 +19,7 @@ grammar Prunille
   end
   
   rule assignment
-    identifier space keyword_is space instanciation
+    identifier space keyword_is space instanciation <Assignment>
   end
   
   rule instanciation

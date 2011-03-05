@@ -48,6 +48,12 @@ module Parser
       [:instanciation, ParserHelper.elements_to_array(self)]
     end
   end
+  
+  class Assignment < Treetop::Runtime::SyntaxNode
+    def to_array
+      [:assignment, ParserHelper.elements_to_array(self)]
+    end
+  end
 
   # A text terminal
   class TextLiteral < Treetop::Runtime::SyntaxNode
