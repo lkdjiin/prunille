@@ -161,25 +161,149 @@ module Prunille
     end
 
     i0 = index
-    r1 = _nt_identifier
+    r1 = _nt_instanciation
     if r1
       r0 = r1
     else
-      r2 = _nt_text
+      r2 = _nt_identifier
       if r2
         r0 = r2
       else
-        r3 = _nt_integer
+        r3 = _nt_text
         if r3
           r0 = r3
         else
-          @index = i0
-          r0 = nil
+          r4 = _nt_integer
+          if r4
+            r0 = r4
+          else
+            r5 = _nt_classname
+            if r5
+              r0 = r5
+            else
+              @index = i0
+              r0 = nil
+            end
+          end
         end
       end
     end
 
     node_cache[:factor][start_index] = r0
+
+    r0
+  end
+
+  module Assignment0
+    def identifier
+      elements[0]
+    end
+
+    def space1
+      elements[1]
+    end
+
+    def keyword_is
+      elements[2]
+    end
+
+    def space2
+      elements[3]
+    end
+
+    def instanciation
+      elements[4]
+    end
+  end
+
+  def _nt_assignment
+    start_index = index
+    if node_cache[:assignment].has_key?(index)
+      cached = node_cache[:assignment][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    i0, s0 = index, []
+    r1 = _nt_identifier
+    s0 << r1
+    if r1
+      r2 = _nt_space
+      s0 << r2
+      if r2
+        r3 = _nt_keyword_is
+        s0 << r3
+        if r3
+          r4 = _nt_space
+          s0 << r4
+          if r4
+            r5 = _nt_instanciation
+            s0 << r5
+          end
+        end
+      end
+    end
+    if s0.last
+      r0 = instantiate_node(SyntaxNode,input, i0...index, s0)
+      r0.extend(Assignment0)
+    else
+      @index = i0
+      r0 = nil
+    end
+
+    node_cache[:assignment][start_index] = r0
+
+    r0
+  end
+
+  module Instanciation0
+    def keyword_new
+      elements[0]
+    end
+
+    def space
+      elements[1]
+    end
+
+    def classname
+      elements[2]
+    end
+  end
+
+  def _nt_instanciation
+    start_index = index
+    if node_cache[:instanciation].has_key?(index)
+      cached = node_cache[:instanciation][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    i0, s0 = index, []
+    r1 = _nt_keyword_new
+    s0 << r1
+    if r1
+      r2 = _nt_space
+      s0 << r2
+      if r2
+        r3 = _nt_classname
+        s0 << r3
+      end
+    end
+    if s0.last
+      r0 = instantiate_node(Instanciation,input, i0...index, s0)
+      r0.extend(Instanciation0)
+    else
+      @index = i0
+      r0 = nil
+    end
+
+    node_cache[:instanciation][start_index] = r0
 
     r0
   end
@@ -288,40 +412,16 @@ module Prunille
     r0
   end
 
-  module Keyword0
+  module KeywordIs0
   end
 
-  module Keyword1
+  module KeywordIs1
   end
 
-  module Keyword2
-  end
-
-  module Keyword3
-  end
-
-  module Keyword4
-  end
-
-  module Keyword5
-  end
-
-  module Keyword6
-  end
-
-  module Keyword7
-  end
-
-  module Keyword8
-  end
-
-  module Keyword9
-  end
-
-  def _nt_keyword
+  def _nt_keyword_is
     start_index = index
-    if node_cache[:keyword].has_key?(index)
-      cached = node_cache[:keyword][index]
+    if node_cache[:keyword_is].has_key?(index)
+      cached = node_cache[:keyword_is][index]
       if cached
         cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
@@ -329,326 +429,149 @@ module Prunille
       return cached
     end
 
-    i0 = index
-    i1, s1 = index, []
-    if has_terminal?('class', false, index)
-      r2 = instantiate_node(SyntaxNode,input, index...(index + 5))
-      @index += 5
+    i0, s0 = index, []
+    if has_terminal?('is', false, index)
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 2))
+      @index += 2
     else
-      terminal_parse_failure('class')
-      r2 = nil
+      terminal_parse_failure('is')
+      r1 = nil
     end
-    s1 << r2
-    if r2
-      i3 = index
-      i4, s4 = index, []
-      i5 = index
+    s0 << r1
+    if r1
+      i2 = index
+      i3, s3 = index, []
+      i4 = index
       if has_terminal?(' ', false, index)
-        r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
         @index += 1
       else
         terminal_parse_failure(' ')
-        r6 = nil
-      end
-      if r6
         r5 = nil
-      else
-        @index = i5
-        r5 = instantiate_node(SyntaxNode,input, index...index)
       end
-      s4 << r5
       if r5
+        r4 = nil
+      else
+        @index = i4
+        r4 = instantiate_node(SyntaxNode,input, index...index)
+      end
+      s3 << r4
+      if r4
         if index < input_length
-          r7 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
           @index += 1
         else
           terminal_parse_failure("any character")
-          r7 = nil
+          r6 = nil
         end
-        s4 << r7
+        s3 << r6
       end
-      if s4.last
-        r4 = instantiate_node(SyntaxNode,input, i4...index, s4)
-        r4.extend(Keyword0)
-      else
-        @index = i4
-        r4 = nil
-      end
-      if r4
-        r3 = nil
+      if s3.last
+        r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
+        r3.extend(KeywordIs0)
       else
         @index = i3
-        r3 = instantiate_node(SyntaxNode,input, index...index)
+        r3 = nil
       end
-      s1 << r3
+      if r3
+        r2 = nil
+      else
+        @index = i2
+        r2 = instantiate_node(SyntaxNode,input, index...index)
+      end
+      s0 << r2
     end
-    if s1.last
-      r1 = instantiate_node(Keyword,input, i1...index, s1)
-      r1.extend(Keyword1)
+    if s0.last
+      r0 = instantiate_node(Keyword,input, i0...index, s0)
+      r0.extend(KeywordIs1)
     else
-      @index = i1
-      r1 = nil
-    end
-    if r1
-      r0 = r1
-    else
-      i8, s8 = index, []
-      if has_terminal?('is', false, index)
-        r9 = instantiate_node(SyntaxNode,input, index...(index + 2))
-        @index += 2
-      else
-        terminal_parse_failure('is')
-        r9 = nil
-      end
-      s8 << r9
-      if r9
-        i10 = index
-        i11, s11 = index, []
-        i12 = index
-        if has_terminal?(' ', false, index)
-          r13 = instantiate_node(SyntaxNode,input, index...(index + 1))
-          @index += 1
-        else
-          terminal_parse_failure(' ')
-          r13 = nil
-        end
-        if r13
-          r12 = nil
-        else
-          @index = i12
-          r12 = instantiate_node(SyntaxNode,input, index...index)
-        end
-        s11 << r12
-        if r12
-          if index < input_length
-            r14 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
-          else
-            terminal_parse_failure("any character")
-            r14 = nil
-          end
-          s11 << r14
-        end
-        if s11.last
-          r11 = instantiate_node(SyntaxNode,input, i11...index, s11)
-          r11.extend(Keyword2)
-        else
-          @index = i11
-          r11 = nil
-        end
-        if r11
-          r10 = nil
-        else
-          @index = i10
-          r10 = instantiate_node(SyntaxNode,input, index...index)
-        end
-        s8 << r10
-      end
-      if s8.last
-        r8 = instantiate_node(Keyword,input, i8...index, s8)
-        r8.extend(Keyword3)
-      else
-        @index = i8
-        r8 = nil
-      end
-      if r8
-        r0 = r8
-      else
-        i15, s15 = index, []
-        if has_terminal?('new', false, index)
-          r16 = instantiate_node(SyntaxNode,input, index...(index + 3))
-          @index += 3
-        else
-          terminal_parse_failure('new')
-          r16 = nil
-        end
-        s15 << r16
-        if r16
-          i17 = index
-          i18, s18 = index, []
-          i19 = index
-          if has_terminal?(' ', false, index)
-            r20 = instantiate_node(SyntaxNode,input, index...(index + 1))
-            @index += 1
-          else
-            terminal_parse_failure(' ')
-            r20 = nil
-          end
-          if r20
-            r19 = nil
-          else
-            @index = i19
-            r19 = instantiate_node(SyntaxNode,input, index...index)
-          end
-          s18 << r19
-          if r19
-            if index < input_length
-              r21 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure("any character")
-              r21 = nil
-            end
-            s18 << r21
-          end
-          if s18.last
-            r18 = instantiate_node(SyntaxNode,input, i18...index, s18)
-            r18.extend(Keyword4)
-          else
-            @index = i18
-            r18 = nil
-          end
-          if r18
-            r17 = nil
-          else
-            @index = i17
-            r17 = instantiate_node(SyntaxNode,input, index...index)
-          end
-          s15 << r17
-        end
-        if s15.last
-          r15 = instantiate_node(Keyword,input, i15...index, s15)
-          r15.extend(Keyword5)
-        else
-          @index = i15
-          r15 = nil
-        end
-        if r15
-          r0 = r15
-        else
-          i22, s22 = index, []
-          if has_terminal?('if', false, index)
-            r23 = instantiate_node(SyntaxNode,input, index...(index + 2))
-            @index += 2
-          else
-            terminal_parse_failure('if')
-            r23 = nil
-          end
-          s22 << r23
-          if r23
-            i24 = index
-            i25, s25 = index, []
-            i26 = index
-            if has_terminal?(' ', false, index)
-              r27 = instantiate_node(SyntaxNode,input, index...(index + 1))
-              @index += 1
-            else
-              terminal_parse_failure(' ')
-              r27 = nil
-            end
-            if r27
-              r26 = nil
-            else
-              @index = i26
-              r26 = instantiate_node(SyntaxNode,input, index...index)
-            end
-            s25 << r26
-            if r26
-              if index < input_length
-                r28 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                terminal_parse_failure("any character")
-                r28 = nil
-              end
-              s25 << r28
-            end
-            if s25.last
-              r25 = instantiate_node(SyntaxNode,input, i25...index, s25)
-              r25.extend(Keyword6)
-            else
-              @index = i25
-              r25 = nil
-            end
-            if r25
-              r24 = nil
-            else
-              @index = i24
-              r24 = instantiate_node(SyntaxNode,input, index...index)
-            end
-            s22 << r24
-          end
-          if s22.last
-            r22 = instantiate_node(Keyword,input, i22...index, s22)
-            r22.extend(Keyword7)
-          else
-            @index = i22
-            r22 = nil
-          end
-          if r22
-            r0 = r22
-          else
-            i29, s29 = index, []
-            if has_terminal?('else', false, index)
-              r30 = instantiate_node(SyntaxNode,input, index...(index + 4))
-              @index += 4
-            else
-              terminal_parse_failure('else')
-              r30 = nil
-            end
-            s29 << r30
-            if r30
-              i31 = index
-              i32, s32 = index, []
-              i33 = index
-              if has_terminal?(' ', false, index)
-                r34 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                @index += 1
-              else
-                terminal_parse_failure(' ')
-                r34 = nil
-              end
-              if r34
-                r33 = nil
-              else
-                @index = i33
-                r33 = instantiate_node(SyntaxNode,input, index...index)
-              end
-              s32 << r33
-              if r33
-                if index < input_length
-                  r35 = instantiate_node(SyntaxNode,input, index...(index + 1))
-                  @index += 1
-                else
-                  terminal_parse_failure("any character")
-                  r35 = nil
-                end
-                s32 << r35
-              end
-              if s32.last
-                r32 = instantiate_node(SyntaxNode,input, i32...index, s32)
-                r32.extend(Keyword8)
-              else
-                @index = i32
-                r32 = nil
-              end
-              if r32
-                r31 = nil
-              else
-                @index = i31
-                r31 = instantiate_node(SyntaxNode,input, index...index)
-              end
-              s29 << r31
-            end
-            if s29.last
-              r29 = instantiate_node(Keyword,input, i29...index, s29)
-              r29.extend(Keyword9)
-            else
-              @index = i29
-              r29 = nil
-            end
-            if r29
-              r0 = r29
-            else
-              @index = i0
-              r0 = nil
-            end
-          end
-        end
-      end
+      @index = i0
+      r0 = nil
     end
 
-    node_cache[:keyword][start_index] = r0
+    node_cache[:keyword_is][start_index] = r0
+
+    r0
+  end
+
+  module KeywordNew0
+  end
+
+  module KeywordNew1
+  end
+
+  def _nt_keyword_new
+    start_index = index
+    if node_cache[:keyword_new].has_key?(index)
+      cached = node_cache[:keyword_new][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    i0, s0 = index, []
+    if has_terminal?('new', false, index)
+      r1 = instantiate_node(SyntaxNode,input, index...(index + 3))
+      @index += 3
+    else
+      terminal_parse_failure('new')
+      r1 = nil
+    end
+    s0 << r1
+    if r1
+      i2 = index
+      i3, s3 = index, []
+      i4 = index
+      if has_terminal?(' ', false, index)
+        r5 = instantiate_node(SyntaxNode,input, index...(index + 1))
+        @index += 1
+      else
+        terminal_parse_failure(' ')
+        r5 = nil
+      end
+      if r5
+        r4 = nil
+      else
+        @index = i4
+        r4 = instantiate_node(SyntaxNode,input, index...index)
+      end
+      s3 << r4
+      if r4
+        if index < input_length
+          r6 = instantiate_node(SyntaxNode,input, index...(index + 1))
+          @index += 1
+        else
+          terminal_parse_failure("any character")
+          r6 = nil
+        end
+        s3 << r6
+      end
+      if s3.last
+        r3 = instantiate_node(SyntaxNode,input, i3...index, s3)
+        r3.extend(KeywordNew0)
+      else
+        @index = i3
+        r3 = nil
+      end
+      if r3
+        r2 = nil
+      else
+        @index = i2
+        r2 = instantiate_node(SyntaxNode,input, index...index)
+      end
+      s0 << r2
+    end
+    if s0.last
+      r0 = instantiate_node(Keyword,input, i0...index, s0)
+      r0.extend(KeywordNew1)
+    else
+      @index = i0
+      r0 = nil
+    end
+
+    node_cache[:keyword_new][start_index] = r0
 
     r0
   end
@@ -668,7 +591,7 @@ module Prunille
     end
 
     i0, s0 = index, []
-    if has_terminal?('\G[a-zA-Z]', true, index)
+    if has_terminal?('\G[a-z]', true, index)
       r1 = true
       @index += 1
     else
@@ -678,7 +601,7 @@ module Prunille
     if r1
       s2, i2 = [], index
       loop do
-        if has_terminal?('\G[a-zA-Z0-9-]', true, index)
+        if has_terminal?('\G[a-z0-9-]', true, index)
           r3 = true
           @index += 1
         else
@@ -702,6 +625,59 @@ module Prunille
     end
 
     node_cache[:identifier][start_index] = r0
+
+    r0
+  end
+
+  module Classname0
+  end
+
+  def _nt_classname
+    start_index = index
+    if node_cache[:classname].has_key?(index)
+      cached = node_cache[:classname][index]
+      if cached
+        cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
+        @index = cached.interval.end
+      end
+      return cached
+    end
+
+    i0, s0 = index, []
+    if has_terminal?('\G[A-Z]', true, index)
+      r1 = true
+      @index += 1
+    else
+      r1 = nil
+    end
+    s0 << r1
+    if r1
+      s2, i2 = [], index
+      loop do
+        if has_terminal?('\G[a-zA-Z0-9]', true, index)
+          r3 = true
+          @index += 1
+        else
+          r3 = nil
+        end
+        if r3
+          s2 << r3
+        else
+          break
+        end
+      end
+      r2 = instantiate_node(SyntaxNode,input, i2...index, s2)
+      s0 << r2
+    end
+    if s0.last
+      r0 = instantiate_node(ClassLiteral,input, i0...index, s0)
+      r0.extend(Classname0)
+    else
+      @index = i0
+      r0 = nil
+    end
+
+    node_cache[:classname][start_index] = r0
 
     r0
   end

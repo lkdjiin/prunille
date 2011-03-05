@@ -3,7 +3,7 @@ grammar Prunille
   include Prunille::Parser
 
   rule statement
-    leading_spaces expression? <Statement>
+    leading_spaces (expression)? <Statement>
   end
   
   rule expression
@@ -15,27 +15,35 @@ grammar Prunille
   end
   
   rule factor
-    (identifier / text / integer)
+    (instanciation / identifier / text / integer / classname)
+  end
+  
+  rule assignment
+    identifier space keyword_is space instanciation
+  end
+  
+  rule instanciation
+    keyword_new space classname <Instanciation>
   end
   
   rule text
     '"' ([^"\\] / "\\" . )* '"' <TextLiteral>
   end
   
-  rule keyword
-    'class' !(!' ' .) <Keyword>
-    /
+  rule keyword_is
     'is' !(!' ' .) <Keyword>
-    /
+  end
+  
+  rule keyword_new
     'new' !(!' ' .) <Keyword>
-    /
-    'if' !(!' ' .) <Keyword>
-    /
-    'else' !(!' ' .) <Keyword>
   end
 
   rule identifier
-    [a-zA-Z] [a-zA-Z0-9-]* <Identifier>
+    [a-z] [a-z0-9-]* <Identifier>
+  end
+  
+  rule classname
+    [A-Z] [a-zA-Z0-9]* <ClassLiteral>
   end
   
   rule integer

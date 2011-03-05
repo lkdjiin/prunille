@@ -42,6 +42,12 @@ module Parser
       [:operation, ParserHelper.elements_to_array(self)]
     end
   end
+  
+  class Instanciation < Treetop::Runtime::SyntaxNode
+    def to_array
+      [:instanciation, ParserHelper.elements_to_array(self)]
+    end
+  end
 
   # A text terminal
   class TextLiteral < Treetop::Runtime::SyntaxNode
@@ -68,6 +74,12 @@ module Parser
   class IntegerLiteral < PrunilleTerminal
     def initialize(*args)
       super(:integer, :to_i, *args)
+    end
+  end
+  
+  class ClassLiteral < PrunilleTerminal
+    def initialize(*args)
+      super(:class, :to_sym, *args)
     end
   end
 
