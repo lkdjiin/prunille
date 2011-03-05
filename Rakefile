@@ -37,5 +37,5 @@ end
 
 desc 'Generate yard documentation'
 task :doc do 
-	exec 'yardoc --title "Prunille Developper's Documentation" - COPYING'
+	exec 'yardoc --title "Prunille Developper\'s Documentation" - COPYING'
 end
