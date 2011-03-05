@@ -8,8 +8,11 @@ Regards.
 == dependencies
 
 * ruby >= 1.9.2
+
+To contribute:
 * rspec
 * reek
+* flay
 
 == licence
 GPLv3

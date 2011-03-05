@@ -12,6 +12,15 @@ task :reek do
   exec "reek --quiet #{args} | ./reek.sed"
 end
 
+desc 'Check for duplicate code'
+task :flay do
+  puts 'Check for duplicate code'
+  files = Dir.glob 'lib/**/*.rb'
+  files.delete GRAMMAR_TARGET
+  args = files.join(' ')
+  exec "flay #{args}"
+end
+
 file GRAMMAR_TARGET => [GRAMMAR_SOURCE] do
   puts "Compiling TreeTop grammar..."
   sh "tt #{GRAMMAR_SOURCE} --output #{GRAMMAR_TARGET} --force"
@@ -20,6 +29,6 @@ end
 desc 'Test Prunille'
 task :test => GRAMMAR_TARGET do 
   puts 'Testing Prunille...'
-  sh "rspec --color --format documentation spec"
+  exec "rspec --color --format documentation spec"
 end
 

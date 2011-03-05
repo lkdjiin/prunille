@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-require './lib/prunille'
+require './spec/helper'
 
 describe Treetop do
 

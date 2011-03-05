@@ -1,0 +1,3 @@
+:threeshold: 99
+:excludes: 
+- lib/prunille/parser/prunille.rb
