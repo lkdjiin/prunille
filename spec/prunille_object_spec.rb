@@ -13,32 +13,37 @@ describe Prunille::ObjectMechanic::PrunilleObject do
     PrunilleObject.new[:parents].should == []
   end
   
-  it "can be constructed from a single parent" do
+  it "can inherit from a single parent" do
     parent = PrunilleObject.new
-    child = PrunilleObject.new(parent)
+    child = PrunilleObject.new
+    child.inherit(parent)
   end
   
   it "must retain its single parent" do
     parent = PrunilleObject.new
-    PrunilleObject.new(parent)[:parents].should == [parent]
+    child = PrunilleObject.new
+    child.inherit(parent)
+    child[:parents].should == [parent]
   end
   
-  it "can be constructed from some parents" do
-    parent1 = PrunilleObject.new
-    parent2 = PrunilleObject.new
-    child = PrunilleObject.new(parent1, parent2)
+  it "can inherit from some parents" do
+    child = PrunilleObject.new
+    child.inherit(PrunilleObject.new)
+    child.inherit(PrunilleObject.new)
   end
   
   it "must retain all its parents in order" do
     parent1 = PrunilleObject.new
     parent2 = PrunilleObject.new
-    PrunilleObject.new(parent1, parent2)[:parents].should == [parent1, parent2]
+    child = PrunilleObject.new
+    child.inherit(parent1)
+    child.inherit(parent2)
+    child[:parents].should == [parent1, parent2]
   end
   
   it "must not accept a non PrunilleObject" do
-    parent1 = PrunilleObject.new
-    parent2 = 'azerty'
-    lambda {PrunilleObject.new(parent1, parent2)}.should raise_error(ArgumentError)
+    child = PrunilleObject.new
+    lambda {child.inherit('azerty')}.should raise_error(ArgumentError)
   end
 
 end

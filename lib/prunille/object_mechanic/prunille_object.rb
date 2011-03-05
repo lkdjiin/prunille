@@ -5,13 +5,14 @@ module Prunille::ObjectMechanic
   class PrunilleObject < Hash
     
     # @raise ArgumentError if a parent is not a descendant of PrunilleObject
-    def initialize(*parents)
+    def initialize
       self[:slots] = {}
       self[:parents] = []
-      parents.each do |parent|
-        raise ArgumentError unless parent.kind_of? PrunilleObject
-        self[:parents] << parent
-      end
+    end
+    
+    def inherit parent
+      raise ArgumentError unless parent.kind_of? PrunilleObject
+      self[:parents] << parent
     end
     
   end
