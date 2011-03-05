@@ -4,21 +4,42 @@
 module Prunille
 module Parser
 
-  # A single statement of the language
-  class Statement < Treetop::Runtime::SyntaxNode
-    def to_array
-      ret = self.elements.map {|elem| elem.to_array if elem.respond_to?(:to_array)}
+  # Common methods for the Parser module
+  class ParserHelper
+    def ParserHelper.elements_to_array syntax_node
+      ret = syntax_node.elements.map {|elem| elem.to_array if elem.respond_to?(:to_array)}
       ret.delete nil
       ret
     end
   end
   
-  # A operation, in the sense of the language
+  # A terminal node of the grammar, that define
+  # a to_array method for its representation.
+  # Note that some terminals (see TextLiteral)
+  # doesn't inherit from me.
+  class PrunilleTerminal < Treetop::Runtime::SyntaxNode
+    def initialize(name, repr_method, *args)
+      super(*args)
+      @my_symbol = name
+      @my_representation_method = repr_method
+    end
+    
+    def to_array
+      [@my_symbol, self.text_value.send(@my_representation_method)]
+    end
+  end
+  
+  # A single statement of the language
+  class Statement < Treetop::Runtime::SyntaxNode
+    def to_array
+      ParserHelper.elements_to_array self
+    end
+  end
+  
+  # An operation, in the sense of the language
   class Operation  < Treetop::Runtime::SyntaxNode
     def to_array
-      ret = self.elements.map {|elem| elem.to_array if elem.respond_to?(:to_array)}
-      ret.delete nil
-      [:operation, ret]
+      [:operation, ParserHelper.elements_to_array(self)]
     end
   end
 
@@ -30,30 +51,30 @@ module Parser
   end
   
   # Keywords of the language
-  class Keyword < Treetop::Runtime::SyntaxNode
-    def to_array
-      [:keyword, self.text_value.to_sym]
+  class Keyword < PrunilleTerminal
+    def initialize(*args)
+      super(:keyword, :to_sym, *args)
     end
   end
 
   # An identifier terminal
-  class Identifier < Treetop::Runtime::SyntaxNode
-    def to_array
-      [:identifier, self.text_value.to_sym]
+  class Identifier < PrunilleTerminal
+    def initialize(*args)
+      super(:identifier, :to_sym, *args)
     end
   end
   
   # An integer terminal
-  class IntegerLiteral < Treetop::Runtime::SyntaxNode
-    def to_array
-      [:integer, self.text_value.to_i]
+  class IntegerLiteral < PrunilleTerminal
+    def initialize(*args)
+      super(:integer, :to_i, *args)
     end
   end
 
   # A terminal that is a sequence of leading spaces
-  class Spaces < Treetop::Runtime::SyntaxNode
-    def to_array
-      [:spaces, self.text_value.size]
+  class Spaces < PrunilleTerminal
+    def initialize(*args)
+      super(:spaces, :size, *args)
     end
   end
   

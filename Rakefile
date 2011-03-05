@@ -3,6 +3,9 @@
 GRAMMAR_SOURCE = "grammar/prunille.tt"
 GRAMMAR_TARGET = "lib/prunille/parser/prunille.rb"
 
+desc 'Tests'
+task :default => :test
+
 desc 'Check for code smells'
 task :reek do
   puts 'Checking for code smells...'
