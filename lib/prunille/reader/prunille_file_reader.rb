@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 module Prunille::Reader
 
   # I know how to get things from a prunille source file.

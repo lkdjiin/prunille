@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 require "rubygems"
 require 'treetop'
 require "prunille/exceptions"
