@@ -35,3 +35,7 @@ task :test => GRAMMAR_TARGET do
   exec "rspec --color --format documentation spec"
 end
 
+desc 'Generate yard documentation'
+task :doc do 
+	exec 'yardoc --title "Prunille Developper's Documentation" - COPYING'
+end
