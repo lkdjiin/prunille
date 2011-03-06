@@ -6,7 +6,7 @@ module Prunille
   
     def initialize filename
       @filename = filename
-      unless prunille_extension? and File.exist? filename
+      unless prunille_source_file?
         raise ArgumentError
       end
       @source_lines = Reader::PrunilleFileReader.read @filename
@@ -21,8 +21,8 @@ module Prunille
     
     private
     
-    def prunille_extension?
-      @filename.match /.prunille$/
+    def prunille_source_file?
+      @filename.match /.prunille$/ and File.exist? @filename
     end
     
   end
