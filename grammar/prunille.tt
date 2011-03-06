@@ -3,7 +3,7 @@ grammar Prunille
   include Prunille::Parser
 
   rule statement
-    leading_spaces (assignment / expression)? <Statement>
+    indentation (assignment / expression)? <Statement>
   end
   
   rule expression
@@ -54,8 +54,8 @@ grammar Prunille
     '+' <Operator>
   end
   
-  rule leading_spaces
-    ' '* <Spaces>
+  rule indentation
+    ' '* <Indentation>
   end
 
   rule space

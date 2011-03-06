@@ -12,7 +12,7 @@ module Prunille
   include Prunille::Parser
 
   module Statement0
-    def leading_spaces
+    def indentation
       elements[0]
     end
 
@@ -30,7 +30,7 @@ module Prunille
     end
 
     i0, s0 = index, []
-    r1 = _nt_leading_spaces
+    r1 = _nt_indentation
     s0 << r1
     if r1
       i3 = index
@@ -800,10 +800,10 @@ module Prunille
     r0
   end
 
-  def _nt_leading_spaces
+  def _nt_indentation
     start_index = index
-    if node_cache[:leading_spaces].has_key?(index)
-      cached = node_cache[:leading_spaces][index]
+    if node_cache[:indentation].has_key?(index)
+      cached = node_cache[:indentation][index]
       if cached
         cached = SyntaxNode.new(input, index...(index + 1)) if cached == true
         @index = cached.interval.end
@@ -826,9 +826,9 @@ module Prunille
         break
       end
     end
-    r0 = instantiate_node(Spaces,input, i0...index, s0)
+    r0 = instantiate_node(Indentation,input, i0...index, s0)
 
-    node_cache[:leading_spaces][start_index] = r0
+    node_cache[:indentation][start_index] = r0
 
     r0
   end

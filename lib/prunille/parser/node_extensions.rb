@@ -94,10 +94,10 @@ module Parser
     end
   end
 
-  # A terminal that is a sequence of leading spaces
-  class Spaces < PrunilleTerminal
+  # An indentation is the sequence of leading spaces
+  class Indentation < PrunilleTerminal
     def initialize(*args)
-      super(:spaces, :size, *args)
+      super(:indentation, :size, *args)
     end
   end
   
