@@ -15,13 +15,13 @@ describe Prunille::Main do
     lambda {Prunille::Main.new 'unknown.prunille'}.should raise_error(ArgumentError)
   end
   
-  it "must not raise anything on a valid argument" do
-    lambda {Prunille::Main.new 'spec/source/void.prunille'}.should_not raise_error
-  end
-  
-  it "must not raise anything when processing a valid source" do
-    main = Prunille::Main.new 'spec/source/temp1.prunille'
-    lambda {main.process}.should_not raise_error
-  end
+  #~ it "must not raise anything on a valid argument" do
+    #~ lambda {Prunille::Main.new 'spec/source/void.prunille'}.should_not raise_error
+  #~ end
+  #~ 
+  #~ it "must not raise anything when processing a valid source" do
+    #~ main = Prunille::Main.new 'spec/source/temp1.prunille'
+    #~ lambda {main.process}.should_not raise_error
+  #~ end
   
 end

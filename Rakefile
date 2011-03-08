@@ -1,11 +1,7 @@
 # -*- encoding: utf-8 -*-
 
-GRAMMAR_SOURCE = "grammar/prunille.tt"
-GRAMMAR_TARGET = "lib/prunille/parser/prunille.rb"
-
 def ruby_files_for_shell
   files = Dir.glob 'lib/**/*.rb'
-  files.delete GRAMMAR_TARGET
   files.join(' ')
 end
 
@@ -26,13 +22,8 @@ task :flay do
   exec "flay #{args}"
 end
 
-file GRAMMAR_TARGET => [GRAMMAR_SOURCE] do
-  puts "Compiling TreeTop grammar..."
-  sh "tt #{GRAMMAR_SOURCE} --output #{GRAMMAR_TARGET} --force"
-end
-
 desc 'Test Prunille'
-task :test => GRAMMAR_TARGET do 
+task :test do 
   puts 'Testing Prunille...'
   exec "rspec --color --format documentation spec"
 end

@@ -2,4 +2,8 @@
 
 module Prunille
 
+  class Keyword
+  
+  end
+
 end
