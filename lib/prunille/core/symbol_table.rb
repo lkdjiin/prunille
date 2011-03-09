@@ -2,6 +2,7 @@
 
 module Prunille
 
+  # Remember all the symbols of a script.
   class SymbolTable < Hash
     
     def initialize
