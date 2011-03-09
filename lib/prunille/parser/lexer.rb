@@ -20,13 +20,14 @@ module Prunille
       @symbol_table = symbol_table
       @parsing = []
       @token = nil
+      @unit = LexicalUnit.new symbol_table
     end
   
     def parse codeline
       initialize_parsing codeline
       while @tokenizer.has_more_token?
         @token = @tokenizer.next_token 
-        add_lexical_unit_to_parsing
+        @parsing << @unit.produce_from(@token)
       end
       raise LexerParseError if @parsing.empty?
       @parsing
@@ -37,25 +38,6 @@ module Prunille
     def initialize_parsing codeline
       @tokenizer = Tokenizer.new(codeline)
       @parsing = []
-    end
-    
-    def add_lexical_unit_to_parsing
-      if @token.is_a?(Fixnum)
-        @parsing << [:integer, @token]
-      elsif @token.is_a?(String)
-        identify_string_token
-      end
-    end
-    
-    def identify_string_token
-      symb = @token.to_sym
-      if @symbol_table[@token] != nil
-        @parsing << [:keyword, symb]
-      elsif @token =~ /[A-Z]([A-Z]|[a-z]|-|[0-9])*/
-        @parsing << [:class, symb]
-      elsif @token =~ /[a-z]([A-Z]|[a-z]|-|[0-9])*/
-        @parsing << [:identifier, symb]
-      end
     end
     
   end
