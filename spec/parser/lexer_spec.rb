@@ -8,6 +8,18 @@ describe Lexer do
     @lexer = Lexer.new
   end
   
+  it "must raise error if there is a leading space" do
+    lambda{@lexer.parse(' Object')}.should raise_error(LexerParseError)
+  end
+  
+  it "must raise error if there is some leading spaces" do
+    lambda{@lexer.parse('    Object')}.should raise_error(LexerParseError)
+  end
+  
+  it "must raise error if code line is empty" do
+    lambda{@lexer.parse('')}.should raise_error(LexerParseError)
+  end
+  
   it "must parse a classname" do
     @lexer.parse('Object').should == [[:class, :Object]]
   end
@@ -18,6 +30,22 @@ describe Lexer do
   
   it "must parse a classname with numbers in it" do
     @lexer.parse('Boeing747').should == [[:class, :"Boeing747"]]
+  end
+  
+  it "must parse an identifier" do
+    @lexer.parse('object').should == [[:identifier, :object]]
+  end
+  
+  it "must parse a composed identifier" do
+    @lexer.parse('foo-bar').should == [[:identifier, :"foo-bar"]]
+  end
+  
+  it "must parse an identifier with numbers in it" do
+    @lexer.parse('boeing747').should == [[:identifier, :"boeing747"]]
+  end
+  
+  it "must parse an integer" do
+    @lexer.parse('123').should == [[:integer, 123]]
   end
 
 end
