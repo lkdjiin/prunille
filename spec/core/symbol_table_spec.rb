@@ -8,11 +8,11 @@ describe SymbolTable do
   end
   
   it "must know 'new' keyword" do
-      @sym_tab[:new].nil?.should == false
+      @sym_tab['new'].nil?.should == false
   end
   
   it "must tell 'new' is of type Keyword" do
-    @sym_tab[:new].should == Keyword
+    @sym_tab['new'].should == Keyword
   end
   
 end

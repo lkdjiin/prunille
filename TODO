@@ -1,4 +1,10 @@
+* Tokenizer spec
+* LexicalUnit spec & class
 
+* write regex for 
+  + classname
+  + variable name
+  + method name
 * write readme
 
 Think about

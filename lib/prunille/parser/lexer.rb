@@ -2,9 +2,9 @@
 
 module Prunille
 
-  # I produce a list of token from a line of Prunille code.
+  # I produce a list of lexical unit from a line of code.
   #
-  # +Token summary:+
+  # +Lexical unit summary:+
   # * :class
   #   Object, Foo-Bar, Boeing747, etc.
   # * :identifier
@@ -18,20 +18,15 @@ module Prunille
   
     def initialize symbol_table
       @symbol_table = symbol_table
-      @index = 0
-      @token = ''
-      @look_ahead = ''
-      @code_line = ''
       @parsing = []
+      @token = nil
     end
   
-    def parse code_line
-      initialize_parsing code_line
-      forward_look_ahead
-      while has_more_token?
-        @parsing << next_token 
-        skip_white
-        @token = ''
+    def parse codeline
+      initialize_parsing codeline
+      while @tokenizer.has_more_token?
+        @token = @tokenizer.next_token 
+        add_lexical_unit_to_parsing
       end
       raise LexerParseError if @parsing.empty?
       @parsing
@@ -39,65 +34,28 @@ module Prunille
     
     private
     
-    def initialize_parsing code_line
-      @code_line = code_line
+    def initialize_parsing codeline
+      @tokenizer = Tokenizer.new(codeline)
       @parsing = []
-      @index = 0
-      @token = ''
     end
     
-    def forward_look_ahead
-      @look_ahead = @code_line[@index, 1]
-      @index += 1
-    end
-    
-    def has_more_token?
-      @index < @code_line.size
-    end
-    
-    def next_token
-      if @look_ahead =~ /[A-Z]/
-        get_classname
-      elsif @look_ahead =~ /[a-z]/
-        get_identifier
-      elsif @look_ahead =~ /[0-9]/
-        get_integer
-      else
-        raise LexerParseError
+    def add_lexical_unit_to_parsing
+      if @token.is_a?(Fixnum)
+        @parsing << [:integer, @token]
+      elsif @token.is_a?(String)
+        identify_string_token
       end
     end
     
-    def get_classname
-      get_name
-      [:class, @token.to_sym]
-    end
-    
-    def get_identifier
-      get_name
-      sym = @token.to_sym
-      if @symbol_table[sym].nil?
-        [:identifier, sym]
-      else
-        [:keyword, sym]
+    def identify_string_token
+      symb = @token.to_sym
+      if @symbol_table[@token] != nil
+        @parsing << [:keyword, symb]
+      elsif @token =~ /[A-Z]([A-Z]|[a-z]|-|[0-9])*/
+        @parsing << [:class, symb]
+      elsif @token =~ /[a-z]([A-Z]|[a-z]|-|[0-9])*/
+        @parsing << [:identifier, symb]
       end
-    end
-    
-    def get_name
-      add_look_ahead while @look_ahead =~ /[A-Z]|[a-z]|-|[0-9]/
-    end
-    
-    def get_integer
-      add_look_ahead while @look_ahead =~ /[0-9]/
-      [:integer, @token.to_i]
-    end
-    
-    def add_look_ahead
-      @token << @look_ahead 
-      forward_look_ahead
-    end
-    
-    def skip_white
-      forward_look_ahead while @look_ahead == ' '
     end
     
   end

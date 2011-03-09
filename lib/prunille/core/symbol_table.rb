@@ -6,8 +6,8 @@ module Prunille
   class SymbolTable < Hash
     
     def initialize
-      self[:is] = Keyword
-      self[:new] = Keyword
+      self['is'] = Keyword
+      self['new'] = Keyword
     end
     
   end
