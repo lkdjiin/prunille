@@ -5,7 +5,7 @@ require './spec/helper'
 describe Lexer do
 
   before :each do
-    @lexer = Lexer.new
+    @lexer = Lexer.new(SymbolTable.new)
   end
   
   it "must raise error if there is a leading space" do
@@ -46,6 +46,18 @@ describe Lexer do
   
   it "must parse an integer" do
     @lexer.parse('123').should == [[:integer, 123]]
+  end
+  
+  it "must parse the 'new' keyword" do
+    @lexer.parse('new').should == [[:keyword, :new]]
+  end
+  
+  it "must parse the 'is' keyword" do
+    @lexer.parse('is').should == [[:keyword, :is]]
+  end
+  
+  it "must parse an instanciation" do
+    @lexer.parse('new Object').should == [[:keyword, :new], [:class, :Object]]
   end
 
 end

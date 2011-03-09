@@ -16,7 +16,8 @@ module Prunille
   #   lexical analyse. Empty lines are not allowed.
   class Lexer
   
-    def initialize
+    def initialize symbol_table
+      @symbol_table = symbol_table
       @index = 0
       @token = ''
       @look_ahead = ''
@@ -27,7 +28,11 @@ module Prunille
     def parse code_line
       initialize_parsing code_line
       forward_look_ahead
-      @parsing << next_token while has_more_token?
+      while has_more_token?
+        @parsing << next_token 
+        skip_white
+        @token = ''
+      end
       raise LexerParseError if @parsing.empty?
       @parsing
     end
@@ -69,7 +74,12 @@ module Prunille
     
     def get_identifier
       get_name
-      [:identifier, @token.to_sym]
+      sym = @token.to_sym
+      if @symbol_table[sym].nil?
+        [:identifier, sym]
+      else
+        [:keyword, sym]
+      end
     end
     
     def get_name
@@ -84,6 +94,10 @@ module Prunille
     def add_look_ahead
       @token << @look_ahead 
       forward_look_ahead
+    end
+    
+    def skip_white
+      forward_look_ahead while @look_ahead == ' '
     end
     
   end
