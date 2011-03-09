@@ -1,9 +1,15 @@
 = The Prunille language
 
-Not much to say now...
-Come back later.
+Prunille is in a very early stage of developpment. There is not much to play with for now...
+
+Feel free to come back later.
 
 Regards.
+
+== What Prunille will be
+
+Prunille will be a language that emphasize on readability and good practice.
+
 
 == dependencies
 
