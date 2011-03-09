@@ -22,4 +22,22 @@ describe Tokenizer do
     tokenizer.next_token.should == 1234
   end
   
+  it "must produce sign token" do
+    tokenizer = Tokenizer.new "+"
+    tokenizer.next_token.should == "+"
+    tokenizer = Tokenizer.new "÷"
+    tokenizer.next_token.should == "÷"
+  end
+  
+  # Bug appeared during devel. A one char token can be delivered but
+  # Tokenizer says that it doesnt have got it.
+  it "must produce a one char token" do
+    tokenizer = Tokenizer.new "a"
+    tokenizer.next_token.should == "a"
+    
+    tokenizer = Tokenizer.new "a"
+    # Bug is has_more_token? == false
+    tokenizer.has_more_token?.should == true
+  end
+  
 end

@@ -1,5 +1,4 @@
-
-* LexicalUnit spec & class
+* deal with indentation
 
 * write regex for 
   + classname
@@ -9,9 +8,15 @@
 
 Think about
 =================
-Full utf8 vs [a-zA_Z] pour les noms de classes, de méthodes, de variables, etc.
-Contre:
-  On en arrive à mélanger plusieurs langues.
-  Exemple: véhicule is new Véhicule
-Pour:
-  Cela permettrait d'écrire facilement un DSL dans une langue autre que l'anglais
+* Full utf8 vs [a-zA_Z] pour les noms de classes, de méthodes, de variables, etc.
+  Contre:
+    On en arrive à mélanger plusieurs langues.
+    Exemple: véhicule is new Véhicule
+  Pour:
+    Cela permettrait d'écrire facilement un DSL dans une langue autre que l'anglais
+
+* method-name \ modificator
+
+* one class in one file (like java)
+
+* naming convention of constant (if constant exist...)

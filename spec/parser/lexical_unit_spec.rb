@@ -24,4 +24,8 @@ describe LexicalUnit do
     @unit.produce_from('boeing747').should == [:identifier, :"boeing747"]
   end
   
+  it "must transform a sign" do
+    @unit.produce_from('+').should == [:sign, "+"]
+    @unit.produce_from('÷').should == [:sign, "÷"]
+  end
 end

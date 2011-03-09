@@ -59,5 +59,26 @@ describe Lexer do
   it "must parse an instanciation" do
     @lexer.parse('new Object').should == [[:keyword, :new], [:class, :Object]]
   end
+  
+  it "must parse an instanciation with arguments" do
+    @lexer.parse('new Object foo 123').should == [[:keyword, :new], 
+                                                  [:class, :Object],
+                                                  [:identifier, :foo],
+                                                  [:integer, 123]]
+  end
 
+  it "must parse an assignment" do
+    @lexer.parse('var is new Object').should == [[:identifier, :var],
+                                                  [:keyword, :is],
+                                                    [:keyword, :new], 
+                                                    [:class, :Object]]
+  end
+  
+  it "must parse a sign" do
+    @lexer.parse('+').should == [[:sign, '+']]
+    @lexer.parse('-').should == [[:sign, '-']]
+    @lexer.parse('*').should == [[:sign, '*']]
+    @lexer.parse('÷').should == [[:sign, '÷']]
+  end
+  
 end

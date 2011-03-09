@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 module Prunille
 
   # I produce a lexical unit from a token.
@@ -9,6 +10,7 @@ module Prunille
   # | 'new'       | [:keyword, :new]            |
   # | 'Foo-Bar'   | [:class, :"Foo-Bar"]        |
   # | 'boeing747' | [:identifier, :"boeing747"] |
+  # | '+'         | [:sign, '+']                |
   # |-------------|-----------------------------|
   class LexicalUnit
   
@@ -36,6 +38,8 @@ module Prunille
        [:class, symb]
       elsif @token =~ /[a-z]([A-Z]|[a-z]|-|[0-9])*/
         [:identifier, symb]
+      elsif @token =~ /\+|-|\*|÷/
+        [:sign, @token]
       end
     end
     

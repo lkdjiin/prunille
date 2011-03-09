@@ -7,6 +7,7 @@ module Prunille
   # What I can produce:
   # * name-like: "a-thing", "My-Class"
   # * integer-like: 123, 0
+  # * sign: "*", "-", "*", "÷"
   class Tokenizer
   
     def initialize string
@@ -18,7 +19,7 @@ module Prunille
     end
     
     def has_more_token?
-      @index < @codeline.size
+      @index <= @codeline.size
     end
     
     def next_token
@@ -35,6 +36,8 @@ module Prunille
         get_name
       elsif @look_ahead =~ /[0-9]/
         get_integer
+      elsif sign?
+        get_sign
       else
         raise LexerParseError
       end
@@ -62,6 +65,19 @@ module Prunille
     
     def skip_white
       forward_look_ahead while @look_ahead == ' '
+    end
+    
+    def sign?
+      case @look_ahead
+        when '+', '-', '*', '÷' then true
+        else
+          false
+      end
+    end
+    
+    def get_sign
+      add_look_ahead
+      @token
     end
     
   end
