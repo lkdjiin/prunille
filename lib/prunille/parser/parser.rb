@@ -5,7 +5,7 @@ module Prunille
   # for the stack machine.
   #
   # @todo This class does 2 things:
-  #   1. checks grammar (lexical unit > syntaxic unit)
+  #   1. checks grammar (lexical unit > syntactic unit)
   #   2. does postfix
   class Parser
   
