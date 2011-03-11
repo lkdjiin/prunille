@@ -23,14 +23,14 @@ module Prunille
     end
     
     def add
-      value = @stack.pop + @stack.pop
-      @stack << value
+      value = @stack.pop[1] + @stack.pop[1]
+      @stack << [:integer, value]
     end
     
     def sub
-      second_term = @stack.pop
-      first_term = @stack.pop
-      @stack << (first_term - second_term)
+      second_term = @stack.pop[1]
+      first_term = @stack.pop[1]
+      @stack << [:integer, (first_term - second_term)]
     end
     
   end

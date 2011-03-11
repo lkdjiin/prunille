@@ -9,15 +9,15 @@ describe StackMachine do
   end
 
   it "must push and pop" do
-    @stack.push 123
-    @stack.pop.should == 123
+    @stack.push [:integer, 123]
+    @stack.pop.should == [:integer, 123]
   end
   
   it "must push and pop multiple times" do
-    @stack.push 123
-    @stack.push 5
-    @stack.pop.should == 5
-    @stack.pop.should == 123
+    @stack.push [:integer, 123]
+    @stack.push [:integer, 5]
+    @stack.pop.should == [:integer, 5]
+    @stack.pop.should == [:integer, 123]
   end
   
   it "must raise error if we try to pop nothing" do
@@ -33,18 +33,18 @@ describe StackMachine do
   end
   
   it "must add two integers" do
-    @stack.push 123
-    @stack.push 5
+    @stack.push [:integer, 123]
+    @stack.push [:integer, 5]
     @stack.add
-    @stack.pop.should == 128
+    @stack.pop.should == [:integer, 128]
     lambda{@stack.pop}.should raise_error (StackError)
   end
   
   it "must substract two integers" do
-    @stack.push 123
-    @stack.push 5
+    @stack.push [:integer, 123]
+    @stack.push [:integer, 5]
     @stack.sub
-    @stack.pop.should == 118
+    @stack.pop.should == [:integer, 118]
     lambda{@stack.pop}.should raise_error (StackError)
   end
   

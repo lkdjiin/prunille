@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 
-module Prunille::IPrune
+module Prunille
 
   RESPONSE = '=> '
   
@@ -8,14 +8,28 @@ module Prunille::IPrune
   class IPrune
   
     def initialize
-      @line_number = 1
+      @line_number = 0
+      @parser = Parser.new(SymbolTable.new)
+      @stack = StackMachine.new
     end
   
     def process
       loop do
+        @line_number += 1
         prompt
         line = gets.chomp
-        puts RESPONSE + line
+        parsing = @parser.parse line
+        parsing.each {|unit|
+          if unit[0] == :integer
+           @stack.push unit
+          elsif unit[1] == '+'
+            @stack.add
+          else
+            @stack.sub
+          end
+        }
+        result = @stack.pop[1]
+        puts "#{RESPONSE}#{result}"
       end
     end
     

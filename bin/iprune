@@ -3,5 +3,5 @@
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'prunille'
 require 'prunille/iprune'
-main = Prunille::IPrune::IPrune.new
+main = Prunille::IPrune.new
 main.process
