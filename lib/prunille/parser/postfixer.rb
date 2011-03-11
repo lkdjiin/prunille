@@ -26,7 +26,7 @@ module Prunille
     end
     
     def term_loop
-      if add_operator?
+      if @current.add_operator?
         unit = @current
         accept
         term
@@ -47,15 +47,6 @@ module Prunille
     
     def accept
       @current = SyntacticUnit.new @units.shift
-    end
-    
-    def add_operator?
-      operator? ['+', '-']
-    end
-    
-    def operator? values
-      return false if @current.nil?
-      @current.type == :sign and values.include?(@current.value)
     end
     
   end

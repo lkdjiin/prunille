@@ -34,5 +34,16 @@ describe SyntacticUnit do
     syn_unit = SyntacticUnit.new([:integer, 123])
     syn_unit.nil?.should == false
   end
+  
+  it "must tell if it is an add operator" do
+    syn_unit = SyntacticUnit.new([:sign, '+'])
+    syn_unit.add_operator?.should == true
+    
+    syn_unit = SyntacticUnit.new([:sign, '-'])
+    syn_unit.add_operator?.should == true
+    
+    syn_unit = SyntacticUnit.new([:sign, '÷'])
+    syn_unit.add_operator?.should == false
+  end
 
 end

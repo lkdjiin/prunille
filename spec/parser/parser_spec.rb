@@ -5,27 +5,22 @@ require './spec/helper'
 describe Parser do
 
   before :all do
-    @parser = Parser.new
-  end
-
-  it "must postfix a simple addition" do
-    result = @parser.parse([[:integer, 1], [:sign, '+'], [:integer, 2]])
-    result.should == [[:integer, 1], [:integer, 2], [:sign, '+']]
+    @parser = Parser.new(SymbolTable.new)
   end
   
-  it "must postfix a simple substraction" do
-    result = @parser.parse([[:integer, 1], [:sign, '-'], [:integer, 2]])
-    result.should == [[:integer, 1], [:integer, 2], [:sign, '-']]
+  it "must parse a single integer" do
+    result = @parser.parse('123')
+    result.should == [[:integer, 123]]
   end
   
-  it "must postfix a simple multiplication" do
-    result = @parser.parse([[:integer, 1], [:sign, '*'], [:integer, 2]])
-    result.should == [[:integer, 1], [:integer, 2], [:sign, '*']]
+  it "must parse an addition" do
+    result = @parser.parse('123 + 5')
+    result.should == [[:integer, 123], [:integer, 5], [:sign, '+']]
   end
   
-  it "must postfix a simple division" do
-    result = @parser.parse([[:integer, 1], [:sign, '÷'], [:integer, 2]])
-    result.should == [[:integer, 1], [:integer, 2], [:sign, '÷']]
+  it "must parse a substraction" do
+    result = @parser.parse('123 - 5')
+    result.should == [[:integer, 123], [:integer, 5], [:sign, '-']]
   end
 
 end

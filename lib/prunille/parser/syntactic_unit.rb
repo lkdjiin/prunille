@@ -27,6 +27,17 @@ module Prunille
       @type.nil?
     end
     
+    def add_operator?
+      operator? ['+', '-']
+    end
+    
+    private
+    
+    def operator? values
+      return false if nil?
+      @type == :sign and values.include?(@value)
+    end
+    
   end
   
 end
