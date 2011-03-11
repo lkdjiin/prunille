@@ -1,0 +1,21 @@
+# -*- encoding: utf-8 -*-
+require './spec/helper'
+
+
+describe Postfixer do
+
+  before :all do
+    @postfixer = Postfixer.new
+  end
+
+  it "must not touch a single integer" do
+    result = @postfixer.postfix([[:integer, 1]])
+    result.should == [[:integer, 1]]
+  end
+  
+  it "must postfix a simple addition" do
+    result = @postfixer.postfix([[:integer, 1], [:sign, '+'], [:integer, 2]])
+    result.should == [[:integer, 1], [:integer, 2], [:sign, '+']]
+  end
+
+end
