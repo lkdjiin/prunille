@@ -5,6 +5,7 @@ require "prunille/exceptions"
 require "prunille/parser"
 require "prunille/reader"
 require "prunille/object_mechanic"
+require "prunille/stack_machine"
 require "prunille/main"
 
 module Prunille
