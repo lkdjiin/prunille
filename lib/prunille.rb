@@ -7,6 +7,7 @@ require "prunille/reader"
 require "prunille/object_mechanic"
 require "prunille/stack_machine"
 require "prunille/main"
+require "prunille/bytecoder.rb"
 
 module Prunille
 end

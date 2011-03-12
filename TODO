@@ -1,7 +1,7 @@
 * goal #1: a simple calculator
 
 ok  1. parse
-  2. generate bytecode
+ok  2. generate bytecode
 ok  3. stack machine
   4. iprune app / catching errors
   5. read/write bytecode
