@@ -3,5 +3,10 @@
 $LOAD_PATH.unshift File.dirname(__FILE__) + '/../lib'
 require 'prunille'
 require 'prunille/iprune'
-main = Prunille::IPrune.new
-main.process
+iprune = Prunille::IPrune.new
+
+loop do
+  print iprune.prompt
+  result = iprune.eval_expression gets.chomp
+  puts "=> #{result}" unless result.nil?
+end

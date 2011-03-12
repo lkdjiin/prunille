@@ -1,7 +1,5 @@
 # -*- encoding: utf-8 -*-
 module Prunille
-
-  RESPONSE = '=> '
   
   # Interactive console for the Prunille language.
   class IPrune
@@ -12,28 +10,21 @@ module Prunille
       @stack = StackMachine.new
       @bytecoder = Bytecoder.new
     end
-  
-    def process
-      loop do
-        print prompt
-        result = eval_expression gets.chomp
-        puts "#{RESPONSE}#{result}"
-      end
-    end
     
     def eval_expression line
+      return nil if line == ''
       parsing = @parser.parse(line)
       bytecode = @bytecoder.generate(parsing)
       call_stack_machine(bytecode)
       @stack.pop
     end
     
-    private
-    
     def prompt
       @line_number += 1
       "iprune:#{format('%03d', @line_number)}> "
     end
+    
+    private
     
     def call_stack_machine bytecode
       bytecode.each do |instruction|

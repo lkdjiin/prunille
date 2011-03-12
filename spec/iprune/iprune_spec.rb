@@ -16,6 +16,10 @@ describe IPrune do
     @iprune.eval_expression('123-3').should == 120
   end
   
+  it "must return nil on empty expression" do
+    @iprune.eval_expression('').should == nil
+  end
+  
   it "must prompt with line number" do
     iprune = IPrune.new
     def iprune.public_prompt
