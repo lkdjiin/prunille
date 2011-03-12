@@ -28,5 +28,11 @@ describe IPrune do
     iprune.public_prompt.should == "iprune:001> "
     iprune.public_prompt.should == "iprune:002> "
   end
+  
+  it "must return message on error" do
+    @iprune.eval_expression('1 + $').should == "Prunille::LexerParseError\n   Unexpected token <$>"
+    @iprune.eval_expression('+').should == "Prunille::SyntaxError\n   Expected one of Integer"
+    @iprune.eval_expression('1p2').should == "Prunille::SyntaxError\n   Expected one of +, -"
+  end
 
 end

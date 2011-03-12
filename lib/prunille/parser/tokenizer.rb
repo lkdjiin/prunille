@@ -39,7 +39,7 @@ module Prunille
       elsif sign?
         get_sign
       else
-        raise LexerParseError
+        raise LexerParseError, "Unexpected token <#{@look_ahead}>"
       end
     end
     

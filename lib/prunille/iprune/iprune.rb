@@ -13,10 +13,14 @@ module Prunille
     
     def eval_expression line
       return nil if line == ''
-      parsing = @parser.parse(line)
-      bytecode = @bytecoder.generate(parsing)
-      call_stack_machine(bytecode)
-      @stack.pop
+      begin
+        parsing = @parser.parse(line)
+        bytecode = @bytecoder.generate(parsing)
+        call_stack_machine(bytecode)
+        @stack.pop
+      rescue SyntaxError, LexerParseError => ex
+        "#{ex.class}\n   #{ex.message}"
+      end
     end
     
     def prompt

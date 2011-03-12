@@ -39,7 +39,7 @@ module Prunille
       case @current.type
         when :integer then integer
         else
-          raise RuntimeError, "Error, I need an expression"
+          raise SyntaxError, "Expected one of Integer"
       end
     end
     

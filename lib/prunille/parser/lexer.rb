@@ -29,7 +29,7 @@ module Prunille
         @token = @tokenizer.next_token 
         @parsing << @unit.produce_from(@token)
       end
-      raise LexerParseError if @parsing.empty?
+      raise LexerParseError, "Unexpected token" if @parsing.empty?
       @parsing
     end
     
@@ -43,7 +43,7 @@ module Prunille
   end
   
   # Raises if any errors occured in the lexical analyser
-  class LexerParseError < Exception
+  class LexerParseError < StandardError
   end
 
 end
