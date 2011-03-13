@@ -22,11 +22,8 @@ describe IPrune do
   
   it "must prompt with line number" do
     iprune = IPrune.new
-    def iprune.public_prompt
-      prompt
-    end
-    iprune.public_prompt.should == "iprune:001> "
-    iprune.public_prompt.should == "iprune:002> "
+    iprune.prompt.should == "iprune:001> "
+    iprune.prompt.should == "iprune:002> "
   end
   
   it "must return message on error" do
