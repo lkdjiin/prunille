@@ -7,6 +7,10 @@ iprune = Prunille::IPrune.new
 
 loop do
   print iprune.prompt
-  result = iprune.eval_expression gets.chomp
-  puts "=> #{result}" unless result.nil?
+  result, error = iprune.eval_expression gets.chomp
+  if error
+    puts "=> #{result}".color(:red)
+  else
+    puts "=> #{result}".color(:cyan) unless result.nil?
+  end
 end

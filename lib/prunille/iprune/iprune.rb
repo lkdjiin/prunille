@@ -28,9 +28,9 @@ module Prunille
         parsing = @parser.parse(line)
         bytecode = @bytecoder.generate(parsing)
         call_stack_machine(bytecode)
-        @stack.pop
+        [@stack.pop, false]
       rescue SyntaxError, LexerParseError => ex
-        "#{ex.class}\n   #{ex.message}"
+        ["#{ex.class}\n   #{ex.message}", true]
       end
     end
     

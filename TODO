@@ -1,13 +1,19 @@
-* goal #1: a simple calculator
+* goal #1: a simple calculator (+ - * / %) with precedence
 
-ok  1. parse
-ok  2. generate bytecode
-ok  3. stack machine
-ok  4. iprune app / catching errors
-  5. read/write bytecode
-  6. prunille app
-  
-* colorize iprune output
+* prunille app
+  si fichier.pc existe
+    si modif_time(ficher.prunille) > modif_time(fichier.pc)
+      generer_bytecode
+    sinon
+      charger bytecode du fichier.pc
+  sinon
+    generer_bytecode
+
+  def generer_bytecode
+    charger fichier.prunille
+    parse
+    generate bytecode
+    write bytecode
 
 * deal with indentation
 
