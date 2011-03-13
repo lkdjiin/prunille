@@ -13,6 +13,17 @@ module Prunille
     
     def eval_expression line
       return nil if line == ''
+      do_eval line
+    end
+    
+    def prompt
+      @line_number += 1
+      "iprune:#{format('%03d', @line_number)}> "
+    end
+    
+    private
+    
+    def do_eval line
       begin
         parsing = @parser.parse(line)
         bytecode = @bytecoder.generate(parsing)
@@ -22,13 +33,6 @@ module Prunille
         "#{ex.class}\n   #{ex.message}"
       end
     end
-    
-    def prompt
-      @line_number += 1
-      "iprune:#{format('%03d', @line_number)}> "
-    end
-    
-    private
     
     def call_stack_machine bytecode
       bytecode.each do |instruction|
