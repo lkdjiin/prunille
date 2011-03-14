@@ -8,10 +8,20 @@ module Prunille
       initialize_parsing syntactic_units
       term
       until @current.nil?
-        term_loop
+        postfix_loop
       end
       @parsing_result
     end
+    
+    def postfix_loop
+      if @current.add_operator?
+        unit = @current
+        accept
+        term
+        @parsing_result << unit.to_array
+      end
+    end
+    private :postfix_loop
     
     private
     
@@ -23,13 +33,11 @@ module Prunille
     
     def term
       factor
-    end
-    
-    def term_loop
-      if @current.add_operator?
+      while @current.mult_operator?
+        # Code similar to #postfix_loop
         unit = @current
         accept
-        term
+        factor
         @parsing_result << unit.to_array
       end
     end

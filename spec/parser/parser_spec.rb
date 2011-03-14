@@ -22,5 +22,20 @@ describe Parser do
     result = @parser.parse('123 - 5')
     result.should == [[:integer, 123], [:integer, 5], [:sign, '-']]
   end
+  
+  it "must parse a multiplication" do
+    result = @parser.parse('123 * 5')
+    result.should == [[:integer, 123], [:integer, 5], [:sign, '*']]
+  end
+  
+  it "must parse a division" do
+    result = @parser.parse('123 ÷ 5')
+    result.should == [[:integer, 123], [:integer, 5], [:sign, '÷']]
+  end
+  
+  it "must parse a modulo" do
+    result = @parser.parse('123 % 5')
+    result.should == [[:integer, 123], [:integer, 5], [:sign, '%']]
+  end
 
 end
