@@ -48,4 +48,28 @@ describe StackMachine do
     lambda{@stack.pop}.should raise_error (StackError)
   end
   
+  it "must multiply two integers" do
+    @stack.push 12
+    @stack.push 5
+    @stack.mul
+    @stack.pop.should == 60
+    lambda{@stack.pop}.should raise_error (StackError)
+  end
+  
+  it "must divide two integers" do
+    @stack.push 100
+    @stack.push 5
+    @stack.div
+    @stack.pop.should == 20
+    lambda{@stack.pop}.should raise_error (StackError)
+  end
+  
+  it "must modulo two integers" do
+    @stack.push 6
+    @stack.push 5
+    @stack.mod
+    @stack.pop.should == 1
+    lambda{@stack.pop}.should raise_error (StackError)
+  end
+  
 end

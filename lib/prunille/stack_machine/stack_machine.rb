@@ -33,6 +33,23 @@ module Prunille
       @stack << first_term - second_term
     end
     
+    def mul
+      value = @stack.pop * @stack.pop
+      @stack << value
+    end
+    
+    def div
+      second_term = @stack.pop
+      first_term = @stack.pop
+      @stack << first_term / second_term
+    end
+    
+    def mod
+      second_term = @stack.pop
+      first_term = @stack.pop
+      @stack << first_term % second_term
+    end
+    
   end
   
 end

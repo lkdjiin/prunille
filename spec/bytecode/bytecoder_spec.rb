@@ -16,6 +16,24 @@ describe Bytecoder do
     result.should == [[:push, 123], [:push, 5], [:sub]]
   end
   
+  it "must generate bytecode for a multiplication" do
+    coder = Bytecoder.new
+    result = coder.generate [[:integer, 123], [:integer, 5], [:sign, '*']]
+    result.should == [[:push, 123], [:push, 5], [:mul]]
+  end
+  
+  it "must generate bytecode for a division" do
+    coder = Bytecoder.new
+    result = coder.generate [[:integer, 123], [:integer, 5], [:sign, '÷']]
+    result.should == [[:push, 123], [:push, 5], [:div]]
+  end
+  
+  it "must generate bytecode for a modulo" do
+    coder = Bytecoder.new
+    result = coder.generate [[:integer, 123], [:integer, 5], [:sign, '%']]
+    result.should == [[:push, 123], [:push, 5], [:mod]]
+  end
+  
   it "must raise error on unknown unit" do
     coder = Bytecoder.new
     lambda{coder.generate [[:alpha]]}.should raise_error(BytecoderError)

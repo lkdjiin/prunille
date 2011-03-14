@@ -31,6 +31,9 @@ module Prunille
       case value
         when '+' then @instructions << [:add]
         when '-' then @instructions << [:sub]
+        when '*' then @instructions << [:mul]
+        when '÷' then @instructions << [:div]
+        when '%' then @instructions << [:mod]
       end
     end
     
