@@ -37,5 +37,10 @@ describe Parser do
     result = @parser.parse('123 % 5')
     result.should == [[:integer, 123], [:integer, 5], [:sign, '%']]
   end
+  
+  it "must parse 1 - 2 * 3" do
+    result = @parser.parse('1 - 2 * 3')
+    result.should == [[:integer, 1], [:integer, 2], [:integer, 3], [:sign, '*'], [:sign, '-']]
+  end
 
 end
