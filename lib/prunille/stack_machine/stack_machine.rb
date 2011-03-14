@@ -23,31 +23,31 @@ module Prunille
     end
     
     def add
-      value = @stack.pop + @stack.pop
-      @stack << value
+      math_instruction '+'
     end
     
     def sub
-      second_term = @stack.pop
-      first_term = @stack.pop
-      @stack << first_term - second_term
+      math_instruction '-'
     end
     
     def mul
-      value = @stack.pop * @stack.pop
-      @stack << value
+      math_instruction '*'
     end
     
     def div
-      second_term = @stack.pop
-      first_term = @stack.pop
-      @stack << first_term / second_term
+      math_instruction '/'
     end
     
     def mod
-      second_term = @stack.pop
-      first_term = @stack.pop
-      @stack << first_term % second_term
+      math_instruction '%'
+    end
+    
+    private
+    
+    def math_instruction op
+      second = @stack.pop
+      first = @stack.pop
+      @stack << first.send(op, second)
     end
     
   end

@@ -1,4 +1,3 @@
 Duplication: 
  exclude: 
- - add
- - sub
+ - math_instruction
