@@ -38,7 +38,7 @@ module Prunille
        [:class, symb]
       elsif @token =~ /[a-z]([A-Z]|[a-z]|-|[0-9])*/
         [:identifier, symb]
-      elsif @token =~ /\+|-|\*|÷/
+      elsif @token =~ /\+|-|\*|÷|%/
         [:sign, @token]
       end
     end

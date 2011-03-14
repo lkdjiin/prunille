@@ -69,7 +69,7 @@ module Prunille
     
     def sign?
       case @look_ahead
-        when '+', '-', '*', '÷' then true
+        when '+', '-', '*', '÷', '%' then true
         else
           false
       end

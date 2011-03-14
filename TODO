@@ -34,7 +34,7 @@ Think about
   Pour:
     Cela permettrait d'écrire facilement un DSL dans une langue autre que l'anglais
 
-* method-name \ modificator
+* method-name \ modifier
 
 * one class in one file (like java)
 

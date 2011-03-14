@@ -79,6 +79,7 @@ describe Lexer do
     @lexer.parse('-').should == [[:sign, '-']]
     @lexer.parse('*').should == [[:sign, '*']]
     @lexer.parse('÷').should == [[:sign, '÷']]
+    @lexer.parse('%').should == [[:sign, '%']]
   end
   
   it "must parse a simple addition" do
@@ -95,5 +96,9 @@ describe Lexer do
   
   it "must parse a simple division" do
     @lexer.parse('1 ÷ 2').should == [[:integer, 1], [:sign, '÷'], [:integer, 2]]
+  end
+  
+  it "must parse a simple modulo" do
+    @lexer.parse('1 % 2').should == [[:integer, 1], [:sign, '%'], [:integer, 2]]
   end
 end

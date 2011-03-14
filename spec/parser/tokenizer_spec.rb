@@ -22,11 +22,29 @@ describe Tokenizer do
     tokenizer.next_token.should == 1234
   end
   
-  it "must produce sign token" do
+  it "must produce + token" do
     tokenizer = Tokenizer.new "+"
     tokenizer.next_token.should == "+"
+  end
+  
+  it "must produce - token" do
+    tokenizer = Tokenizer.new "-"
+    tokenizer.next_token.should == "-"
+  end
+  
+  it "must produce * token" do
+    tokenizer = Tokenizer.new "*"
+    tokenizer.next_token.should == "*"
+  end
+  
+  it "must produce ÷ token" do
     tokenizer = Tokenizer.new "÷"
     tokenizer.next_token.should == "÷"
+  end
+  
+  it "must produce % token" do
+    tokenizer = Tokenizer.new "%"
+    tokenizer.next_token.should == "%"
   end
   
   # Bug appeared during devel. A one char token can be delivered but
