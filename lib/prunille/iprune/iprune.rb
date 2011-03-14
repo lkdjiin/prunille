@@ -36,10 +36,11 @@ module Prunille
     
     def call_stack_machine bytecode
       bytecode.each do |instruction|
-        case instruction.first # This is the operand
+        operand = instruction.first
+        case operand
           when :push then @stack.push instruction[1]
-          when :add then @stack.add
-          when :sub then @stack.sub
+          else
+            @stack.send(operand)
         end
       end
     end

@@ -20,6 +20,12 @@ describe IPrune do
     result.should == 120
   end
   
+  it "must resolve a multiplication" do
+    result, error = @iprune.eval_expression('3*3')
+    error.should be_false
+    result.should == 9
+  end
+  
   it "must return nil on empty expression" do
     @iprune.eval_expression('').should == nil
   end
