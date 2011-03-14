@@ -31,6 +31,10 @@ module Prunille
       operator? ['+', '-']
     end
     
+    def mult_operator?
+      operator? ['*', '÷', '%']
+    end
+    
     private
     
     def operator? values

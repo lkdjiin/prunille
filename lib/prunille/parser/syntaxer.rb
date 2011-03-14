@@ -50,11 +50,11 @@ module Prunille
     
     def sign
       unit = @current.to_array
-      if [[:sign, '+'], [:sign, '-']].include?(unit)
+      if [[:sign, '+'], [:sign, '-'], [:sign, '*'], [:sign, '÷'], [:sign, '%']].include?(unit)
         @parsing <<  unit
         accept @current.type
       else
-        raise SyntaxError, "Expected one of +, -"
+        raise SyntaxError, "Expected one of +, -, *, ÷, %"
       end
     end
     

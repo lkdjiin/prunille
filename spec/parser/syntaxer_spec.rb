@@ -18,6 +18,26 @@ describe Syntaxer do
     result.should == [[:integer, 1], [:sign, '+'], [:integer, 2]]
   end
   
+  it "must parse a simple substraction" do
+    result = @syntaxer.parse([[:integer, 1], [:sign, '-'], [:integer, 2]])
+    result.should == [[:integer, 1], [:sign, '-'], [:integer, 2]]
+  end
+  
+  it "must parse a simple multiplication" do
+    result = @syntaxer.parse([[:integer, 1], [:sign, '*'], [:integer, 2]])
+    result.should == [[:integer, 1], [:sign, '*'], [:integer, 2]]
+  end
+  
+  it "must parse a simple division" do
+    result = @syntaxer.parse([[:integer, 1], [:sign, '÷'], [:integer, 2]])
+    result.should == [[:integer, 1], [:sign, '÷'], [:integer, 2]]
+  end
+  
+  it "must parse a simple modulo" do
+    result = @syntaxer.parse([[:integer, 1], [:sign, '%'], [:integer, 2]])
+    result.should == [[:integer, 1], [:sign, '%'], [:integer, 2]]
+  end
+  
   it "must raise an error on bad syntax" do
     lambda{@syntaxer.parse([[:integer, 1], [:integer, 2]])}.should raise_error(Prunille::SyntaxError)
   end
@@ -26,7 +46,7 @@ describe Syntaxer do
     begin
       @syntaxer.parse([[:integer, 1], [:integer, 2]])
     rescue Prunille::SyntaxError => ex
-      ex.message.should == "Expected one of +, -"
+      ex.message.should == "Expected one of +, -, *, ÷, %"
     end
   end
 

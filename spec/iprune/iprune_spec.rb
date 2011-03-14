@@ -39,7 +39,7 @@ describe IPrune do
   it "must return error message on unexpected unit" do
     result, error = @iprune.eval_expression('1p2')
     error.should be_true
-    result.should == "Prunille::SyntaxError\n   Expected one of +, -"
+    result.should == "Prunille::SyntaxError\n   Expected one of +, -, *, ÷, %"
   end
   
   it "must return error message on incomphrensible expression" do

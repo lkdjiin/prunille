@@ -45,5 +45,19 @@ describe SyntacticUnit do
     syn_unit = SyntacticUnit.new([:sign, '÷'])
     syn_unit.add_operator?.should == false
   end
+  
+  it "must tell if it is a mult operator" do
+    syn_unit = SyntacticUnit.new([:sign, '*'])
+    syn_unit.mult_operator?.should == true
+    
+    syn_unit = SyntacticUnit.new([:sign, '÷'])
+    syn_unit.mult_operator?.should == true
+    
+    syn_unit = SyntacticUnit.new([:sign, '%'])
+    syn_unit.mult_operator?.should == true
+    
+    syn_unit = SyntacticUnit.new([:sign, '+'])
+    syn_unit.mult_operator?.should == false
+  end
 
 end

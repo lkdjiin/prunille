@@ -17,5 +17,25 @@ describe Postfixer do
     result = @postfixer.postfix([[:integer, 1], [:sign, '+'], [:integer, 2]])
     result.should == [[:integer, 1], [:integer, 2], [:sign, '+']]
   end
+  
+  it "must postfix a simple substraction" do
+    result = @postfixer.postfix([[:integer, 1], [:sign, '-'], [:integer, 2]])
+    result.should == [[:integer, 1], [:integer, 2], [:sign, '-']]
+  end
+  
+  #~ it "must postfix a simple multiplication" do
+    #~ result = @postfixer.postfix([[:integer, 1], [:sign, '*'], [:integer, 2]])
+    #~ result.should == [[:integer, 1], [:integer, 2], [:sign, '*']]
+  #~ end
+  #~ 
+  #~ it "must postfix a simple division" do
+    #~ result = @postfixer.postfix([[:integer, 1], [:sign, '÷'], [:integer, 2]])
+    #~ result.should == [[:integer, 1], [:integer, 2], [:sign, '÷']]
+  #~ end
+  #~ 
+  #~ it "must postfix a simple modulo" do
+    #~ result = @postfixer.postfix([[:integer, 1], [:sign, '%'], [:integer, 2]])
+    #~ result.should == [[:integer, 1], [:integer, 2], [:sign, '%']]
+  #~ end
 
 end
